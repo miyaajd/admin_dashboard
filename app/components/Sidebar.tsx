@@ -40,7 +40,7 @@ export default function Sidebar() {
       <img
         src="/images/allpays.png"
         alt="logo"
-        className="py-12 px-8 w-[80%] cursor-pointer mx-auto"
+        className="py-12 px-8 w-[80%] cursor-pointer"
         onClick={() => router.push("/dashboard")}
       />
       {/* 메뉴 */}
