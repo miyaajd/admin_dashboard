@@ -48,7 +48,7 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchPayments() {
       try {
-        const res = await fetch("http://localhost:4000/payments");
+        const res = await fetch("/api/payments");
         const data: Payment[] = await res.json();
         setPayments(data);
 
@@ -88,7 +88,7 @@ export default function DashboardPage() {
     // API에서 가맹점 목록 가져오기
     async function fetchMerchants() {
       try {
-        const res = await fetch("http://localhost:4000/merchants");
+        const res = await fetch("/api/merchants");
         const merchants = await res.json();
 
         // 전체 가맹점 수

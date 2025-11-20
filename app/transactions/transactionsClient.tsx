@@ -64,7 +64,7 @@ export default function TransactionsClient() {
   useEffect(() => {
     async function fetchPayments() {
       try {
-        const res = await fetch("http://localhost:4000/payments");
+        const res = await fetch("/api/payments");
         const data: Payment[] = await res.json();
         setPayments(data);
       } catch (error) {
@@ -74,7 +74,7 @@ export default function TransactionsClient() {
 
     async function fetchMerchants() {
       try {
-        const res = await fetch("http://localhost:4000/merchants");
+        const res = await fetch("/api/merchants");
         const data = await res.json();
         setMerchants(data);
       } catch (error) {

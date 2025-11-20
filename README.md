@@ -104,22 +104,28 @@ npm run dev
 <프로젝트 구조>
 
 app/
+├─ api/                          // Next.js API Routes (배포용 Mock API)
+│  ├─ merchants/
+│  │  └─ route.ts                // /api/merchants
+│  └─ payments/
+│     └─ route.ts                // /api/payments
+│
 ├─ components/
-│  ├─ Chart.tsx         
-│  └─ Sidebar.tsx       
+│  ├─ Chart.tsx                  
+│  └─ Sidebar.tsx                
 │
 ├─ dashboard/
-│  └─ page.tsx           
+│  └─ page.tsx                   // 대시보드 화면 (메인 통계/차트/리스트)
 │
 ├─ transactions/
-│  ├─ page.tsx                // 서버 컴포넌트 (Suspense 껍데기)
-│  └─ transactionsClient.tsx  // "use client"; useSearchParams 사용하는 클라 컴포넌트
+│  ├─ page.tsx                   // 서버 컴포넌트 (Suspense Shell)
+│  └─ transactionsClient.tsx     // 클라이언트 컴포넌트 (필터/검색/페이징)
 │
 ├─ mock/
-│  └─ db.json           
+│  ├─ data.ts                    // 배포용 mock 데이터 (payments / merchants)
+│  └─ db.json                    // 로컬 json-server용 원본 데이터
 │
 ├─ favicon.ico
 ├─ globals.css
-├─ layout.tsx             
-└─ page.tsx  
-
+├─ layout.tsx                    
+└─ page.tsx                      // / → /dashboard 리다이렉트

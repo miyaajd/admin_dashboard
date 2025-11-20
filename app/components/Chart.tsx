@@ -22,7 +22,7 @@ export default function PaymentChart() {
   useEffect(() => {
     async function fetchPayments() {
       try {
-        const res = await fetch("http://localhost:4000/payments");
+        const res = await fetch("/api/payments");
         const data: Payment[] = await res.json();
         setPayments(data);
       } catch (error) {
