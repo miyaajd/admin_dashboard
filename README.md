@@ -1,4 +1,4 @@
-# pays_dashboard
+# admin_dashboard
 
 <프로젝트 소개>
 
@@ -19,7 +19,7 @@
 
 * Chart.js
 
-* API 연동
+* json-server (Mock REST API)
 
 
 <기능 목록>
@@ -95,18 +95,21 @@ npm run dev
 
 app/
 ├─ components/
-│  ├─ Chart.tsx            
-│  └─ Sidebar.tsx          
+│  ├─ Chart.tsx         
+│  └─ Sidebar.tsx       
 │
 ├─ dashboard/
-│  └─ page.tsx            
+│  └─ page.tsx          
 │
 ├─ transactions/
-│  └─ page.tsx            
+│  └─ page.tsx           
+│
+├─ mock/
+│  └─ db.json            
 │
 ├─ favicon.ico
-├─ globals.css             
-├─ layout.tsx             
+├─ globals.css          
+├─ layout.tsx            
 └─ page.tsx 
 
-# admin_dashboard
+
