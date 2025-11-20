@@ -35,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        {/* 폰트어썸 */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -42,6 +43,21 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        {/* 파비콘 */}
+        <link
+          rel="icon"
+          type="image/png"
+          href="/favicon/favicon-96x96.png"
+          sizes="96x96"
+        />
+        <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -54,7 +70,16 @@ export default function RootLayout({
             <Sidebar />
 
             {/* 페이지별 컨텐츠 */}
-            <main style={{ padding: "24px 36px", backgroundColor: "#efefef", width: "100%", height:"100vh" }}>{children}</main>
+            <main
+              style={{
+                padding: "24px 36px",
+                backgroundColor: "#efefef",
+                width: "100%",
+                height: "100vh",
+              }}
+            >
+              {children}
+            </main>
           </div>
         </ThemeProvider>
       </body>

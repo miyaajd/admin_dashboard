@@ -99,17 +99,17 @@ app/
 │  └─ Sidebar.tsx       
 │
 ├─ dashboard/
-│  └─ page.tsx          
-│
-├─ transactions/
 │  └─ page.tsx           
 │
+├─ transactions/
+│  ├─ page.tsx                // 서버 컴포넌트 (Suspense 껍데기)
+│  └─ transactionsClient.tsx  // "use client"; useSearchParams 사용하는 클라 컴포넌트
+│
 ├─ mock/
-│  └─ db.json            
+│  └─ db.json           
 │
 ├─ favicon.ico
-├─ globals.css          
-├─ layout.tsx            
-└─ page.tsx 
-
+├─ globals.css
+├─ layout.tsx             
+└─ page.tsx  
 
