@@ -103,6 +103,9 @@ npm run dev
 
 <프로젝트 구조>
 
+* 프로젝트는 Next.js(App Router) 기반으로 구성되어 있으며,  
+대시보드/거래내역 페이지, API Route(mock), 전역 레이아웃 등으로 분리되어 있습니다.
+
 app/
 ├─ api/                          // Next.js API Routes (배포용 Mock API)
 │  ├─ merchants/
