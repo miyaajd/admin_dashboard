@@ -38,9 +38,9 @@ export default function Sidebar() {
     <div className="max-w-65 flex flex-col h-full">
       {/* 로고 */}
       <img
-        src="/images/allpays.png"
+        src="/images/pay.png"
         alt="logo"
-        className="py-12 px-8 w-[80%] cursor-pointer"
+        className="py-12 px-8 cursor-pointer"
         onClick={() => router.push("/dashboard")}
       />
       {/* 메뉴 */}

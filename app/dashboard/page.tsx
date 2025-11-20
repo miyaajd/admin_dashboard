@@ -48,17 +48,15 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchPayments() {
       try {
-        const res = await fetch(
-          "https://recruit.paysbypays.com/api/v1/payments/list"
-        );
-        const data = await res.json();
-        setPayments(data.data);
+        const res = await fetch("http://localhost:4000/payments");
+        const data: Payment[] = await res.json();
+        setPayments(data);
 
         // 총 거래건수
-        setTotalCount(data.data.length);
+        setTotalCount(data.length);
 
         // 총 매출액 (성공한 결제만 합산)
-        const paymentsData: Payment[] = data.data;
+        const paymentsData: Payment[] = data;
         const total = paymentsData
           .filter((payment) => payment.status === "SUCCESS")
           .reduce((sum, payment) => sum + Number(payment.amount), 0);
@@ -66,19 +64,19 @@ export default function DashboardPage() {
         setTotalRevenue(total);
 
         // 결제 실패 건수
-        const failed = data.data.filter(
+        const failed = data.filter(
           (payment: Payment) => payment.status === "FAILED"
         ).length;
         setFailedCount(failed);
 
         // 결제 성공 건수
-        const success = data.data.filter(
+        const success = data.filter(
           (payment: Payment) => payment.status === "SUCCESS"
         ).length;
         setSuccessCount(success);
 
         // 환불 건수
-        const cancelled = data.data.filter(
+        const cancelled = data.filter(
           (payment: Payment) => payment.status === "CANCELLED"
         ).length;
         setCancelledCount(cancelled);
@@ -90,12 +88,8 @@ export default function DashboardPage() {
     // API에서 가맹점 목록 가져오기
     async function fetchMerchants() {
       try {
-        const res = await fetch(
-          "https://recruit.paysbypays.com/api/v1/merchants/list"
-        );
-        const data = await res.json();
-
-        const merchants: Merchant[] = data.data;
+        const res = await fetch("http://localhost:4000/merchants");
+        const merchants = await res.json();
 
         // 전체 가맹점 수
         setMerchantCount(merchants.length);
@@ -137,17 +131,15 @@ export default function DashboardPage() {
 
   // 결제성공 / 결제실패 / 환불 클릭시 상태넘김
   const handleStatusRoute = (status: Payment["status"]) => {
-  router.push(`/transactions?status=${status}`);
-};
+    router.push(`/transactions?status=${status}`);
+  };
 
   return (
     // 전체 wrap
     <div className="space-y-6">
       {/* 페이지 타이틀 */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-[500]">
-          대시보드
-        </h1>
+        <h1 className="text-2xl font-[500]">대시보드</h1>
       </div>
 
       {/* 상단 - 카드 3개 */}
@@ -158,13 +150,11 @@ export default function DashboardPage() {
             className="cardContent cursor-pointer"
             onClick={() => router.push("/transactions")}
           >
-            <Typography variant="h6">
-              총 매출액
-            </Typography>
+            <Typography variant="h6">총 매출액</Typography>
             <p className="mt-1 flex items-center gap-1 text-3xl font-bold text-[#4381ff]">
               {totalRevenue.toLocaleString()}
               <span className="text-base font-normal text-gray-600">원</span>
-              <img src="/images/angle.png" alt="angle" className="opacity-60"/>
+              <img src="/images/angle.png" alt="angle" className="opacity-60" />
             </p>
           </div>
         </div>
@@ -174,26 +164,22 @@ export default function DashboardPage() {
           onClick={() => router.push("/transactions")}
         >
           <div className="cardContent">
-            <Typography variant="h6">
-              총 거래건수
-            </Typography>
+            <Typography variant="h6">총 거래건수</Typography>
             <p className="mt-1 flex items-center gap-1 text-3xl font-bold text-[#4381ff]">
               {totalCount}
               <span className="text-base font-normal text-gray-600">건</span>
-              <img src="/images/angle.png" alt="angle" className="opacity-60"/>
+              <img src="/images/angle.png" alt="angle" className="opacity-60" />
             </p>
           </div>
         </div>
         {/* 전체 가맹점수 카드 */}
         <div className="flex-1 rounded-3xl bg-white py-4 px-10 shadow-md">
           <div className="cardContent">
-            <Typography variant="h6">
-              전체 가맹점수
-            </Typography>
+            <Typography variant="h6">전체 가맹점수</Typography>
             <p className="mt-1 flex items-center gap-1 text-3xl font-bold text-[#4381ff]">
               {merchantCount}
               <span className="text-base font-normal text-gray-600">개</span>
-              <img src="/images/angle.png" alt="angle" className="opacity-60"/>
+              <img src="/images/angle.png" alt="angle" className="opacity-60" />
             </p>
           </div>
         </div>
@@ -207,40 +193,61 @@ export default function DashboardPage() {
           {/* 결제 상태별 건수 */}
           <div className="rounded-3xl bg-white py-6 px-8 shadow-md flex justify-around">
             {/* 성공건수 */}
-            <div className="cardContent" onClick={()=> handleStatusRoute("SUCCESS")}>
+            <div
+              className="cardContent"
+              onClick={() => handleStatusRoute("SUCCESS")}
+            >
               <Typography variant="subtitle1" className="text-gray-600">
                 결제성공
               </Typography>
               <p className="mt-2 flex items-center gap-1 text-2xl font-bold text-[#4381ff] cursor-pointer">
                 {successCount}
                 <span className="text-sm font-normal text-gray-600">건</span>
-                <img src="/images/angle.png" alt="angle" className="w-5 opacity-60"/>
+                <img
+                  src="/images/angle.png"
+                  alt="angle"
+                  className="w-5 opacity-60"
+                />
               </p>
             </div>
             {/* 라인 */}
             <div className="w-[1px] h-full bg-[#ccc]"></div>
             {/* 실패건수 */}
-            <div className="cardContent" onClick={()=> handleStatusRoute("FAILED")}>
+            <div
+              className="cardContent"
+              onClick={() => handleStatusRoute("FAILED")}
+            >
               <Typography variant="subtitle1" className="text-gray-600">
                 결제실패
               </Typography>
               <p className="mt-2 flex items-center gap-1 text-2xl font-bold text-[#FF3C73] cursor-pointer">
                 {failedCount}
                 <span className="text-sm font-normal text-gray-600">건</span>
-                <img src="/images/angle.png" alt="angle" className="w-5 opacity-60"/>
+                <img
+                  src="/images/angle.png"
+                  alt="angle"
+                  className="w-5 opacity-60"
+                />
               </p>
             </div>
             {/* 라인 */}
             <div className="w-[1px] h-full bg-[#ccc]"></div>
             {/* 환불건수 */}
-            <div className="cardContent" onClick={()=> handleStatusRoute("CANCELLED")}>
+            <div
+              className="cardContent"
+              onClick={() => handleStatusRoute("CANCELLED")}
+            >
               <Typography variant="subtitle1" className="text-gray-600">
                 환불
               </Typography>
               <p className="mt-2 flex items-center gap-1 text-2xl font-bold text-[#5a5a5a] cursor-pointer">
                 {cancelledCount}
                 <span className="text-sm font-normal text-gray-600">건</span>
-                <img src="/images/angle.png" alt="angle" className="w-5 opacity-60"/>
+                <img
+                  src="/images/angle.png"
+                  alt="angle"
+                  className="w-5 opacity-60"
+                />
               </p>
             </div>
           </div>
@@ -250,9 +257,7 @@ export default function DashboardPage() {
         <div className="flex-1 flex flex-col rounded-3xl bg-white py-6 px-8 shadow-md">
           <div className="cardContent">
             {/* 타이틀 */}
-            <Typography variant="h6">
-              최근 거래내역
-            </Typography>
+            <Typography variant="h6">최근 거래내역</Typography>
             {/* 리스트 감싸는 영역 : 스크롤 */}
             <div className="mt-4 flex-1 overflow-y-auto pr-2 max-h-[550px]">
               <ul>
@@ -297,9 +302,7 @@ export default function DashboardPage() {
         <div className="flex-1 flex flex-col rounded-3xl bg-white py-6 px-8 shadow-md">
           {/* 타이틀 , 필터링 박스 */}
           <div className="flex justify-between items-center">
-            <Typography variant="h6">
-              가맹점 리스트
-            </Typography>
+            <Typography variant="h6">가맹점 리스트</Typography>
 
             {/* 매출액 높은순 / 낮은순 필터링 */}
             <select
@@ -344,7 +347,7 @@ export default function DashboardPage() {
                   </div>
 
                   {/* 오른쪽: 매출액 */}
-                  <p className="text-base font-semibold text-[#4381ff]">
+                  <p className="text-base font-semibold text-[#4381ff] ml-auto">
                     {m.revenue.toLocaleString()}원
                   </p>
                 </li>

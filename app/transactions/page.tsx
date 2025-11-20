@@ -64,11 +64,9 @@ export default function TransactionsPage() {
   useEffect(() => {
     async function fetchPayments() {
       try {
-        const res = await fetch(
-          "https://recruit.paysbypays.com/api/v1/payments/list"
-        );
-        const data = await res.json();
-        setPayments(data.data);
+        const res = await fetch("http://localhost:4000/payments");
+        const data: Payment[] = await res.json();
+        setPayments(data);
       } catch (error) {
         console.error("Failed to fetch payments:", error);
       }
@@ -76,11 +74,9 @@ export default function TransactionsPage() {
 
     async function fetchMerchants() {
       try {
-        const res = await fetch(
-          "https://recruit.paysbypays.com/api/v1/merchants/list"
-        );
+        const res = await fetch("http://localhost:4000/merchants");
         const data = await res.json();
-        setMerchants(data.data);
+        setMerchants(data);
       } catch (error) {
         console.error("Failed to fetch merchants:", error);
       }
